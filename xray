@@ -1,0 +1,12 @@
+START=99
+start(){
+        (/etc/xray run -confdir /etc/json &)
+}
+stop(){
+        kill -9 `ps | grep '/etc/xray' | grep -v 'grep' | awk '{print $1}'`
+        (/etc/xray run -confdir /etc/json &)
+}
+restart(){
+        kill -9 `ps | grep '/etc/xray' | grep -v 'grep' | awk '{print $1}'`
+        (/etc/xray run -confdir /etc/json &)
+}
