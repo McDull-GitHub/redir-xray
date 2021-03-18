@@ -1,0 +1,77 @@
+{
+    "dns": {
+        "servers": [
+            {
+                "address": "223.5.5.5",
+                "port": 53,
+                "domains": [
+                    "geosite:cn",
+                    "ntp.org"
+                ]
+            },
+            {
+                "address": "114.114.114.114",
+                "port": 53,
+                "domains": [
+                    "geosite:cn",
+                    "ntp.org"
+                ]
+            },
+            "https://dns.google/dns-query",
+            "8.8.8.8",
+            "https://1.1.1.1/dns-query"
+        ]
+    },
+    "inbounds": [
+        {
+            "port": 12345,
+            "protocol": "dokodemo-door",
+            "settings": {
+                "network": "tcp,udp",
+                "followRedirect": true
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls"
+                ]
+            }
+        }
+    ],
+    "log": {
+        "loglevel": "none"
+    },
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "tag": "DIRECT"
+        }
+    ],
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            {
+                "ip": [
+                    "geoip:private"
+                ],
+                "outboundTag": "DIRECT",
+                "type": "field"
+            },
+            {
+                "ip": [
+                    "geoip:cn"
+                ],
+                "outboundTag": "DIRECT",
+                "type": "field"
+            },
+            {
+                "domain": [
+                    "geosite:cn"
+                ],
+                "outboundTag": "DIRECT",
+                "type": "field"
+            }
+        ]
+    }
+}
